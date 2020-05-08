@@ -1,0 +1,7 @@
+# WeatherControl config
+# 
+# Rain probability. 1 = 100% = vanilla.
+rain-frequency: 1.0
+storms-frequency: 1
+rain-enabled: true
+storms-enabled: true

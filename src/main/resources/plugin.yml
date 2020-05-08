@@ -1,0 +1,86 @@
+#
+#                GLWT(Good Luck With That) Public License
+#                  Copyright (c) Everyone, except Author
+# 
+# Everyone is permitted to copy, distribute, modify, merge, sell, publish,
+# sublicense or whatever they want with this software but at their OWN RISK.
+# 
+#                             Preamble
+# 
+# The author has absolutely no clue what the code in this project does.
+# It might just work or not, there is no third option.
+# 
+# 
+#                 GOOD LUCK WITH THAT PUBLIC LICENSE
+#    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION, AND MODIFICATION
+# 
+#   0. You just DO WHATEVER YOU WANT TO as long as you NEVER LEAVE A
+# TRACE TO TRACK THE AUTHOR of the original product to blame for or hold
+# responsible.
+# 
+# IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+# DEALINGS IN THE SOFTWARE.
+# 
+# Good luck and Godspeed.
+#
+main: ch.ar.weathercontrol.WeatherControl
+name: WeatherControl
+author: AreiTharn
+version: 1.12.2 1.0.0
+description: This plugin allows some kind of control on weather. Maybe... possibly.
+load: POSTWORLD
+commands:
+    wc:
+        description: WeatherControl commands
+        usage: |
+               /<command> <info>
+               /<command> <verbose> <true|false>
+               /<command> <rain> <set> <true|false>
+               /<command> <storms> <set> <true|false>
+               /<command> <rain> <dura> <0..n>
+               /<command> <storms> <dura> <0..n>
+               /<command> <rain> <freq> <0..1>
+               /<command> <storms> <freq> <0..1>
+               /<command> <rain> <ticks> <0..n>
+               /<command> <storms> <ticks> <0..n>
+               /<command> <dura> <true|false>
+               /<command> <method> <rand|ticks>
+        aliases: [weathercontrol]
+permissions:
+    wc.*:
+        default: op
+        children:
+            wc.cmd.*: true
+            wc.verbose: true
+    wc.cmd.*:
+        default: op
+        children:
+            wc.cmd.info: true
+            wc.cmd.verbose: true
+            wc.cmd.rain: true
+            wc.cmd.storms: true
+            wc.cmd.dura: true
+            wc.cmd.method: true
+    wc.cmd.info:
+        description: Outputs the content of config.yml.
+        default: op
+    wc.cmd.verbose:
+        description: Controls verbosity settings.
+        default: op
+    wc.cmd.rain:
+        description: Controls rain settings.
+        default: op
+    wc.cmd.storms:
+        description: Controls storms settings.
+        default: op
+    wc.verbose:
+        description: Send informations about WeatherEvents.
+        default: op
+    wc.cmd.dura:
+        description: Controls custom duration settings.
+        default: op
+    wc.cmd.method:
+        description: Controls limit method setting.
+        default: op
