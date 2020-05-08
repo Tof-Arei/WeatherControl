@@ -28,6 +28,7 @@
 package ch.ar.weathercontrol.commands;
 
 import ch.ar.weathercontrol.WeatherControl;
+import ch.ar.env.commands.CommandTemplate;
 import java.util.List;
 import org.bukkit.command.CommandSender;
 
@@ -35,32 +36,18 @@ import org.bukkit.command.CommandSender;
  *
  * @author Arei
  */
-public abstract class CommandTemplate {
-    protected WeatherControl plugin;
-    protected String name;
-    protected String permission;
-    protected int minArgs = 0;
-    protected String help;
-    
-    protected CommandTemplate(WeatherControl plugin) {
-        this.plugin = plugin;
-    }
-    
-    public abstract boolean onCommand(CommandSender sender, List<String> args);
-
-    public String getName() {
-        return name;
+public class Help extends CommandTemplate {
+    public Help(WeatherControl plugin) {
+        super(plugin);
+        
+        name = "help";
+        permission = "wc.cmd.help";
+        minArgs = 1;
+        help = "/<wc|weathercontrol> <help>";
     }
 
-    public String getPermission() {
-        return permission;
-    }
-
-    public int getMinArgs() {
-        return minArgs;
-    }
-
-    public String getHelp() {
-        return help;
+    @Override
+    public boolean onCommand(CommandSender sender, List<String> args) {
+        return false;
     }
 }

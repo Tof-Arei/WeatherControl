@@ -25,9 +25,12 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.weathercontrol.commands;
+package ch.ar.env.commands;
 
 import ch.ar.weathercontrol.WeatherControl;
+import ch.ar.weathercontrol.commands.Help;
+import ch.ar.weathercontrol.commands.Info;
+import ch.ar.weathercontrol.commands.Set;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -84,11 +87,8 @@ public class WCCommandExecutor implements CommandExecutor {
     
     private void registerCommands() {
         addCommand(new Info(plugin));
-        addCommand(new Verbose(plugin));
-        addCommand(new Rain(plugin));
-        addCommand(new Storms(plugin));
-        addCommand(new CustomDuration(plugin));
-        addCommand(new Method(plugin));
+        addCommand(new Help(plugin));
+        addCommand(new Set(plugin));
     }
     
     private void addCommand(CommandTemplate command) {

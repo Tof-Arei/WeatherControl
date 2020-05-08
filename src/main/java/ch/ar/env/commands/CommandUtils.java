@@ -25,31 +25,19 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.weathercontrol.commands;
-
-import ch.ar.weathercontrol.WeatherControl;
-import java.util.List;
-import org.bukkit.command.CommandSender;
+package ch.ar.env.commands;
 
 /**
  *
  * @author Arei
  */
-public class Verbose  extends CommandTemplate {
-    public Verbose(WeatherControl plugin) {
-        super(plugin);
-        
-        name = "verbose";
-        permission = "wc.cmd.verbose";
-        minArgs = 1;
-        help = "/<wc|weathercontrol> <method> <rand|ticks>";
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, List<String> args) {
-        plugin.getConfig().set("verbose", Boolean.parseBoolean(args.get(0)));
-        sender.sendMessage("Verbose mode : " + Boolean.parseBoolean(args.get(0)));
-        plugin.saveConfig();
-        return true;
+public class CommandUtils {
+    public static boolean isNumeric(String str) {
+        try {  
+            Double.parseDouble(str);  
+            return true;
+        } catch(NumberFormatException e){  
+            return false;  
+        }  
     }
 }

@@ -28,32 +28,46 @@
 package ch.ar.weathercontrol.commands;
 
 import ch.ar.weathercontrol.WeatherControl;
+import ch.ar.env.commands.CommandTemplate;
 import java.util.List;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
 /**
  *
  * @author Arei
  */
-public class Method  extends CommandTemplate {
-    public Method(WeatherControl plugin) {
+public class Set extends CommandTemplate {
+    public Set(WeatherControl plugin) {
         super(plugin);
         
-        name = "method";
-        permission = "wc.cmd.method";
-        minArgs = 1;
-        help = "/<wc|weathercontrol> <method> <rand|ticks>";
+        name = "set";
+        permission = "wc.cmd.set";
+        minArgs = 2;
+        help = "/<wc|weathercontrol> <set> <variable> <value>";
     }
 
     @Override
     public boolean onCommand(CommandSender sender, List<String> args) {
-        if (args.contains("rand") || args.contains("ticks")) {
-            plugin.getConfig().set("limit-method", args.get(0));
-            sender.sendMessage("Limit method : " + args.get(0));
+        FileConfiguration config = plugin.getConfig();
+        
+        if (config.contains(args.get(0))) {
+            if (config.isBoolean(args.get(0))) {
+                config.set(args.get(0), Boolean.parseBoolean(args.get(1)));
+            } else if (config.isDouble(args.get(0))) {
+                config.set(args.get(0), Double.parseDouble(args.get(1)));
+            } else if (config.isInt(args.get(0))) {
+                config.set(args.get(0), Integer.parseInt(args.get(1)));
+            } else {
+                config.set(args.get(0), args.get(1));
+            }
+            
+            sender.sendMessage("Storms probability set to " + args.get(0));
             plugin.saveConfig();
+            
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

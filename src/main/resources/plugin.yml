@@ -36,17 +36,8 @@ commands:
         description: WeatherControl commands
         usage: |
                /<command> <info>
-               /<command> <verbose> <true|false>
-               /<command> <rain> <set> <true|false>
-               /<command> <storms> <set> <true|false>
-               /<command> <rain> <dura> <0..n>
-               /<command> <storms> <dura> <0..n>
-               /<command> <rain> <freq> <0..1>
-               /<command> <storms> <freq> <0..1>
-               /<command> <rain> <ticks> <0..n>
-               /<command> <storms> <ticks> <0..n>
-               /<command> <dura> <true|false>
-               /<command> <method> <rand|ticks>
+               /<command> <help>
+               /<command> <set>
         aliases: [weathercontrol]
 permissions:
     wc.*:
@@ -58,29 +49,14 @@ permissions:
         default: op
         children:
             wc.cmd.info: true
-            wc.cmd.verbose: true
-            wc.cmd.rain: true
-            wc.cmd.storms: true
-            wc.cmd.dura: true
-            wc.cmd.method: true
+            wc.cmd.help: true
+            wc.cmd.set: true
     wc.cmd.info:
         description: Outputs the content of config.yml.
         default: op
-    wc.cmd.verbose:
-        description: Controls verbosity settings.
+    wc.cmd.help:
+        description: Get help about the commands.
         default: op
-    wc.cmd.rain:
-        description: Controls rain settings.
-        default: op
-    wc.cmd.storms:
-        description: Controls storms settings.
-        default: op
-    wc.verbose:
-        description: Send informations about WeatherEvents.
-        default: op
-    wc.cmd.dura:
-        description: Controls custom duration settings.
-        default: op
-    wc.cmd.method:
-        description: Controls limit method setting.
+    wc.cmd.set:
+        description: Controls the plugin settings.
         default: op

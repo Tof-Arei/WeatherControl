@@ -27,6 +27,8 @@
  */
 package ch.ar.weathercontrol.commands;
 
+import ch.ar.env.commands.CommandTemplate;
+import ch.ar.weathercontrol.commands.*;
 import ch.ar.weathercontrol.WeatherControl;
 import java.util.List;
 import org.bukkit.Bukkit;

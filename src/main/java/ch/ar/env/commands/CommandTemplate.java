@@ -25,7 +25,7 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.weathercontrol.commands;
+package ch.ar.env.commands;
 
 import ch.ar.weathercontrol.WeatherControl;
 import java.util.List;
@@ -35,20 +35,32 @@ import org.bukkit.command.CommandSender;
  *
  * @author Arei
  */
-public class CustomDuration  extends CommandTemplate {
-    public CustomDuration(WeatherControl plugin) {
-        super(plugin);
-        
-        name = "dura";
-        permission = "wc.cmd.dura";
-        help = "/<wc|weathercontrol> <dura> <true|false>";
+public abstract class CommandTemplate {
+    protected WeatherControl plugin;
+    protected String name;
+    protected String permission;
+    protected int minArgs = 0;
+    protected String help;
+    
+    protected CommandTemplate(WeatherControl plugin) {
+        this.plugin = plugin;
+    }
+    
+    public abstract boolean onCommand(CommandSender sender, List<String> args);
+
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, List<String> args) {
-        plugin.getConfig().set("custom-duration", Boolean.parseBoolean(args.get(0)));
-        sender.sendMessage("Custom duration enabled : " + Boolean.parseBoolean(args.get(0)));
-        plugin.saveConfig();
-        return true;
+    public String getPermission() {
+        return permission;
+    }
+
+    public int getMinArgs() {
+        return minArgs;
+    }
+
+    public String getHelp() {
+        return help;
     }
 }

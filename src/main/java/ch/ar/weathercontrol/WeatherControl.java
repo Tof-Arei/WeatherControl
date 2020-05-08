@@ -27,7 +27,7 @@
  */
 package ch.ar.weathercontrol;
 
-import ch.ar.weathercontrol.commands.WCCommandExecutor;
+import ch.ar.env.commands.WCCommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
