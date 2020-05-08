@@ -25,9 +25,9 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.weathercontrol;
+package ch.ar.wc;
 
-import ch.ar.env.commands.WCCommandExecutor;
+import ch.ar.wc.env.commands.WCCommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 

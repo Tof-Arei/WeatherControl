@@ -25,12 +25,12 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.env.commands;
+package ch.ar.wc.env.commands;
 
-import ch.ar.weathercontrol.WeatherControl;
-import ch.ar.weathercontrol.commands.Help;
-import ch.ar.weathercontrol.commands.Info;
-import ch.ar.weathercontrol.commands.Set;
+import ch.ar.wc.WeatherControl;
+import ch.ar.wc.commands.Help;
+import ch.ar.wc.commands.Info;
+import ch.ar.wc.commands.Set;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

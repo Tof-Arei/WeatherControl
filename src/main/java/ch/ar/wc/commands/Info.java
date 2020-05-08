@@ -25,11 +25,10 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.weathercontrol.commands;
+package ch.ar.wc.commands;
 
-import ch.ar.env.commands.CommandTemplate;
-import ch.ar.weathercontrol.commands.*;
-import ch.ar.weathercontrol.WeatherControl;
+import ch.ar.wc.env.commands.CommandTemplate;
+import ch.ar.wc.WeatherControl;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

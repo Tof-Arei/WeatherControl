@@ -25,7 +25,7 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.weathercontrol;
+package ch.ar.wc;
 
 import java.util.Date;
 import org.bukkit.Bukkit;

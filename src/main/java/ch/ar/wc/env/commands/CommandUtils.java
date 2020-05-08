@@ -25,7 +25,7 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.env.commands;
+package ch.ar.wc.env.commands;
 
 /**
  *
