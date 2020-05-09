@@ -27,20 +27,15 @@
  */
 package ch.ar.wc.event.weather;
 
-import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
-import org.bukkit.event.weather.WeatherChangeEvent;
+import ch.ar.wc.env.event.weather.Weather;
+import org.bukkit.World;
 
 /**
  *
  * @author Arei
  */
-public class Rain extends VanillaWeather {
-    public Rain(WeatherChangeEvent vEvent) {
-        super("Rain", "rain", vEvent);
-    }
-
-    @Override
-    public void cancel() {
-        ((WeatherChangeEvent) vEvent).setCancelled(true);
+public class Rain extends Weather {
+    public Rain(World world) {
+        super("Rain", "rain", world);
     }
 }

@@ -27,12 +27,11 @@
  */
 package ch.ar.wc.env.vanilla;
 
-import ch.ar.wc.event.weather.Clear;
-import ch.ar.wc.event.weather.Rain;
-import ch.ar.wc.event.weather.Storm;
-import ch.ar.wc.env.event.weather.Weather;
+import ch.ar.wc.vanilla.event.weather.Clear;
+import ch.ar.wc.vanilla.event.weather.Rain;
+import ch.ar.wc.vanilla.event.weather.Storm;
 import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
-import ch.ar.wc.event.weather.LightningStrike;
+import ch.ar.wc.vanilla.event.weather.LightningStrike;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -109,10 +108,6 @@ public class VanillaWeatherListener implements Listener {
                     break;
             }
         }
-    }
-    
-    private void weatherTurningGood() {
-        hmLastWeathers.put("clear", new Clear());
     }
     
     private void randomLimit(VanillaWeather weather) {

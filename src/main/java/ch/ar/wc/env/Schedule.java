@@ -27,6 +27,7 @@
  */
 package ch.ar.wc.env;
 
+import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -34,5 +35,9 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @author Arei
  */
 public abstract class Schedule extends BukkitRunnable {
+    protected final World world;
     
+    public Schedule(World world) {
+        this.world = world;
+    }
 }

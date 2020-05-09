@@ -25,54 +25,22 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.schedules;
+package ch.ar.wc.vanilla.event.weather;
 
-import ch.ar.wc.env.Schedule;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bukkit.World;
+import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
+import org.bukkit.event.weather.LightningStrikeEvent;
 
 /**
  *
  * @author Arei
  */
-public class TrackTime extends Schedule {
-    private long previousTicks = 0;
-    private long day = 0;
-    private long todayTicks = 0;
-    
-    public TrackTime(World world) {
-        super(world);
-    }
-    
-    private synchronized void trackTime() {
-        long currenTicks = world.getFullTime();
-        day = currenTicks / 24000;
-        todayTicks = currenTicks - (24000 * day);
-        previousTicks = currenTicks;
+public class LightningStrike extends VanillaWeather {
+    public LightningStrike(LightningStrikeEvent vEvent) {
+        super("LightningStrike", "lightning", vEvent);
     }
     
     @Override
-    public void run() {
-        while (!isCancelled()) {
-            trackTime();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(TrackTime.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    public long getPreviousTicks() {
-        return previousTicks;
-    }
-
-    public long getDay() {
-        return day;
-    }
-
-    public long getTodayTicks() {
-        return todayTicks;
+    public void cancel() {
+        ((LightningStrikeEvent) vEvent).setCancelled(true);
     }
 }

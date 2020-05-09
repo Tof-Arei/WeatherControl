@@ -27,12 +27,12 @@
  */
 package ch.ar.wc;
 
+import ch.ar.wc.env.WorldListener;
 import ch.ar.wc.env.event.weather.WeatherListener;
 import ch.ar.wc.env.vanilla.VanillaWeatherListener;
 import ch.ar.wc.env.commands.WCCommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
 /**
  *
  * @author Arei
@@ -40,17 +40,27 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WeatherControl extends JavaPlugin {
     private static WeatherControl instance = null;
     
-    private FileConfiguration config = getConfig();
+    private final FileConfiguration config = getConfig();
+    
+    private VanillaWeatherListener vWeatherListener;
+    private WorldListener worldListener;
+    private WeatherListener weatherListener;
     
     @Override
     public void onEnable() {
         instance = this;
+        
         config();
         
-        getServer().getPluginManager().registerEvents(new VanillaWeatherListener(), this);
+        vWeatherListener = new VanillaWeatherListener();
+        getServer().getPluginManager().registerEvents(vWeatherListener, this);
         if (config.getBoolean("custom-weather")) {
-            getServer().getPluginManager().registerEvents(new WeatherListener(), this);
+            worldListener = new WorldListener();
+            getServer().getPluginManager().registerEvents(worldListener, this);
+            weatherListener = new WeatherListener();
+            getServer().getPluginManager().registerEvents(weatherListener, this);
         }
+        
         getCommand("wc").setExecutor(new WCCommandExecutor(this));
     }
     
@@ -63,9 +73,9 @@ public class WeatherControl extends JavaPlugin {
         config.addDefault("rain-duration", 6000);
         config.addDefault("storms-duration", 6000);
         config.addDefault("limit-method", "rand");
-        config.addDefault("rain-frequency", 1);
-        config.addDefault("storms-frequency", 1);
-        config.addDefault("lightning-frequency", 1);
+        config.addDefault("rain-frequency", 1.0);
+        config.addDefault("storms-frequency", 1.0);
+        config.addDefault("lightning-frequency", 1.0);
         config.addDefault("rain-ticks", 48000);
         config.addDefault("storms-ticks", 96000);
         config.addDefault("lightning-ticks", 600);
@@ -82,5 +92,17 @@ public class WeatherControl extends JavaPlugin {
     
     public static WeatherControl getPlugin() {
         return instance;
+    }
+
+    public VanillaWeatherListener getvWeatherListener() {
+        return vWeatherListener;
+    }
+
+    public WorldListener getWorldListener() {
+        return worldListener;
+    }
+
+    public WeatherListener getWeatherListener() {
+        return weatherListener;
     }
 }

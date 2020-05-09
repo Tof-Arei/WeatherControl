@@ -27,17 +27,15 @@
  */
 package ch.ar.wc.event.weather;
 
-import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
+import ch.ar.wc.env.event.weather.Weather;
+import org.bukkit.World;
 
 /**
  *
  * @author Arei
  */
-public class Clear extends VanillaWeather {
-    public Clear() {
-        super("Clear", "clear", null);
+public class Clear extends Weather {
+    public Clear(World world) {
+        super("Clear", "clear", world);
     }
-
-    @Override
-    public void cancel() {}
 }

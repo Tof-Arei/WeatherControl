@@ -25,10 +25,9 @@
 # 
 # Good luck and Godspeed.
 #
-# WeatherControl config
 
 # General settings
-# Verbose ? If true, console will log information and users with wc.verbose permission will receive messages about WeatherEvents.
+# Verbose ? If true, console will log informations and users with wc.verbose permission will receive messages about WeatherEvents.
 verbose: false
 
 # Is rain enabled ?
@@ -44,16 +43,16 @@ custom-weather: false
 
 # Vanilla weather settings
 # limit-method :
-# - rand    : Uses rain-frequency and storms-frequency to randomly lower rain/storms probability.
-# - ticks   : Uses rain-ticks and storms-ticks to enforce a mandatory waiting time before the weather can turn bad again.
+# rand : Uses rain-frequency and storms-frequency to randomly lower rain/storms probability.
+# ticks : Uses rain-ticks and storms-ticks to enforce a mandatory waiting time before the weather can turn bad again.
 limit-method: rand
 
-# Rain probability. 1 = 100% = default.
-rain-frequency: 1
-# Storm probability. 1 = 100% = default.
-storms-frequency: 1
-# Ligthning strikes frequency. 1 = 100% = default;
-lightning-frequency: 1
+# Rain probability. 1.0 = 100% = default.
+rain-frequency: 1.0
+# Storm probability. 1.0 = 100% = default.
+storms-frequency: 1.0
+# Ligthning strikes frequency. 1.0 = 100% = default;
+lightning-frequency: 1.0
 
 # Minimum ticks after last rain before it can rain again.
 rain-ticks: 48000
@@ -64,6 +63,19 @@ lightning-ticks: 600
 
 
 # Custom weather settings
+# Weathers occurrences :
+# -2 : Very rarely
+# -1 : Rarely
+# 0 : Normal
+# 1 : Often
+# 2 : Very often
+# How often does it rain ?
+rain-occurrence: 0
+# How often does it storm ?
+storms-occurrence: 0
+# How often does lightning strike during a storm ?
+lightning-occurrence: 0
+
 # Minimum rain duration in ticks.
 rain-duration: 6000
 # Minimum storm duration in ticks.

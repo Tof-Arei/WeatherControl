@@ -29,7 +29,7 @@ main: ch.ar.wc.WeatherControl
 name: WeatherControl
 author: AreiTharn
 version: 1.12.2 1.0.0
-description: This plugin allows some kind of control on weather. Maybe... possibly.
+description: This plugin allows some kind of control over weather. Maybe... possibly.
 load: POSTWORLD
 commands:
     wc:

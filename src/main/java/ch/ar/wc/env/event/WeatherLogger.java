@@ -25,54 +25,25 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.schedules;
+package ch.ar.wc.env.event;
 
-import ch.ar.wc.env.Schedule;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bukkit.World;
+import ch.ar.wc.env.event.weather.Weather;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 /**
  *
  * @author Arei
  */
-public class TrackTime extends Schedule {
-    private long previousTicks = 0;
-    private long day = 0;
-    private long todayTicks = 0;
-    
-    public TrackTime(World world) {
-        super(world);
-    }
-    
-    private synchronized void trackTime() {
-        long currenTicks = world.getFullTime();
-        day = currenTicks / 24000;
-        todayTicks = currenTicks - (24000 * day);
-        previousTicks = currenTicks;
-    }
-    
-    @Override
-    public void run() {
-        while (!isCancelled()) {
-            trackTime();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(TrackTime.class.getName()).log(Level.SEVERE, null, ex);
+public class WeatherLogger {
+    public static void log(Weather weather) {
+        String logLine = weather.getName();
+        
+        Bukkit.getLogger().info(logLine);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.hasPermission("wc.verbose")) {
+                player.sendMessage(logLine);
             }
         }
-    }
-
-    public long getPreviousTicks() {
-        return previousTicks;
-    }
-
-    public long getDay() {
-        return day;
-    }
-
-    public long getTodayTicks() {
-        return todayTicks;
     }
 }

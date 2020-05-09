@@ -25,54 +25,30 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.schedules;
+package ch.ar.wc.env;
 
-import ch.ar.wc.env.Schedule;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bukkit.World;
+import ch.ar.wc.WeatherControl;
+import ch.ar.wc.schedules.TrackTime;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 
 /**
  *
  * @author Arei
  */
-public class TrackTime extends Schedule {
-    private long previousTicks = 0;
-    private long day = 0;
-    private long todayTicks = 0;
-    
-    public TrackTime(World world) {
-        super(world);
+public class WorldListener implements Listener {
+    @EventHandler
+    public void onLoad(WorldLoadEvent e) {
+        TrackTime trackTime = new TrackTime(e.getWorld());
+        WeatherControl.getPlugin().getWeatherListener().addTrackTime(e.getWorld().getName(), trackTime);
+        trackTime.run();
     }
     
-    private synchronized void trackTime() {
-        long currenTicks = world.getFullTime();
-        day = currenTicks / 24000;
-        todayTicks = currenTicks - (24000 * day);
-        previousTicks = currenTicks;
-    }
-    
-    @Override
-    public void run() {
-        while (!isCancelled()) {
-            trackTime();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(TrackTime.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    public long getPreviousTicks() {
-        return previousTicks;
-    }
-
-    public long getDay() {
-        return day;
-    }
-
-    public long getTodayTicks() {
-        return todayTicks;
+    @EventHandler
+    public void onUnload(WorldUnloadEvent e) {
+        WeatherControl.getPlugin().getWeatherListener().getTrackTime(e.getWorld().getName()).cancel();
+        WeatherControl.getPlugin().getWeatherListener().removeTrackTime(e.getWorld().getName());
     }
 }
