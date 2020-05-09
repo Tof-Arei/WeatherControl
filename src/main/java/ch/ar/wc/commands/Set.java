@@ -60,7 +60,7 @@ public class Set extends CommandTemplate {
                 config.set(args.get(0), args.get(1));
             }
             
-            sender.sendMessage("Storms probability set to " + args.get(0));
+            sender.sendMessage(args.get(0) + " set to " + args.get(1));
             WeatherControl.getPlugin().saveConfig();
             
             return true;

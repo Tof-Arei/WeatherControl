@@ -28,16 +28,22 @@
 package ch.ar.wc.env.event;
 
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 
 /**
  *
  * @author Arei
  */
 public abstract class WCEvent extends Event {
-    private long time;
+    private final long time;
     
     public WCEvent() {
         time = System.currentTimeMillis();
+    }
+    
+    @Override
+    public HandlerList getHandlers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public long getTime() {

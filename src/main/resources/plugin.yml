@@ -25,7 +25,7 @@
 # 
 # Good luck and Godspeed.
 #
-main: ch.ar.weathercontrol.WeatherControl
+main: ch.ar.wc.WeatherControl
 name: WeatherControl
 author: AreiTharn
 version: 1.12.2 1.0.0

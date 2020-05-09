@@ -50,7 +50,7 @@ public class Info  extends CommandTemplate {
         FileConfiguration config = Bukkit.getServer().getPluginManager().getPlugin("WeatherControl").getConfig();
         
         sender.sendMessage("Outputing the content of WeatherControl config.yml :");
-        for (String key : config.getKeys(false)) {
+        for (String key : config.getKeys(true)) {
             sender.sendMessage(key + " : " + config.get(key));
         }
         
