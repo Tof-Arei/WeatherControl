@@ -28,7 +28,7 @@
 package ch.ar.wc.env.event.weather;
 
 import ch.ar.wc.WeatherControl;
-import ch.ar.wc.env.event.Event;
+import ch.ar.wc.env.event.WCEvent;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.weather.WeatherEvent;
 
@@ -36,7 +36,7 @@ import org.bukkit.event.weather.WeatherEvent;
  *
  * @author Arei
  */
-public abstract class Weather extends Event {    
+public abstract class Weather extends WCEvent {    
     private final String name;
     private final String prefix;
     

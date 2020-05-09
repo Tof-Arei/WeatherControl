@@ -27,14 +27,16 @@
  */
 package ch.ar.wc.env.event;
 
+import org.bukkit.event.Event;
+
 /**
  *
  * @author Arei
  */
-public abstract class Event {
+public abstract class WCEvent extends Event {
     private long time;
     
-    public Event() {
+    public WCEvent() {
         time = System.currentTimeMillis();
     }
 

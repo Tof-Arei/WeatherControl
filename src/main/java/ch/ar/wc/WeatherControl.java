@@ -27,6 +27,7 @@
  */
 package ch.ar.wc;
 
+import ch.ar.wc.env.WeatherListener;
 import ch.ar.wc.env.vanilla.VanillaWeatherListener;
 import ch.ar.wc.env.commands.WCCommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -45,7 +46,11 @@ public class WeatherControl extends JavaPlugin {
     public void onEnable() {
         instance = this;
         config();
+        
         getServer().getPluginManager().registerEvents(new VanillaWeatherListener(), this);
+        if (config.getBoolean("custom-weather")) {
+            getServer().getPluginManager().registerEvents(new WeatherListener(), this);
+        }
         getCommand("wc").setExecutor(new WCCommandExecutor(this));
     }
     

@@ -27,10 +27,12 @@
  */
 package ch.ar.wc.env;
 
+import org.bukkit.event.Listener;
+
 /**
  *
  * @author Arei
  */
-public class WeatherListener {
+public class WeatherListener implements Listener {
     
 }
