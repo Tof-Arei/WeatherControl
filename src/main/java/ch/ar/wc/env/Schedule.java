@@ -25,19 +25,14 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.event.weather;
+package ch.ar.wc.env;
 
-import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  *
  * @author Arei
  */
-public class Clear extends VanillaWeather {
-    public Clear() {
-        super("Clear", "clear", null);
-    }
-
-    @Override
-    public void cancel() {}
+public abstract class Schedule extends BukkitRunnable {
+    
 }

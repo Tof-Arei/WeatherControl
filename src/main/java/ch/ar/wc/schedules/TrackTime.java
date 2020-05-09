@@ -25,14 +25,33 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env;
+package ch.ar.wc.schedules;
 
-import org.bukkit.event.Listener;
+import ch.ar.wc.WeatherControl;
+import ch.ar.wc.env.Schedule;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Arei
  */
-public class WeatherListener implements Listener {
+public class TrackTime extends Schedule {
+    private int day = 0;
+    private int ticks = 0;
     
+    @Override
+    public void run() {
+        int previousTicks = 0;
+        
+        while (!isCancelled()) {
+            //previousTicks = WeatherControl.getPlugin().getServer().getWorld("test").getFullTime()
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TrackTime.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

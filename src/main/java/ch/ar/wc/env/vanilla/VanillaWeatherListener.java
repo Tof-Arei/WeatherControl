@@ -31,6 +31,7 @@ import ch.ar.wc.event.weather.Clear;
 import ch.ar.wc.event.weather.Rain;
 import ch.ar.wc.event.weather.Storm;
 import ch.ar.wc.env.event.weather.Weather;
+import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
 import ch.ar.wc.event.weather.LightningStrike;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ import org.bukkit.event.weather.WeatherChangeEvent;
  * @author Arei
  */
 public class VanillaWeatherListener implements Listener {
-    private static final Map<String, Weather> hmLastWeathers = new HashMap<>();
+    private static final Map<String, VanillaWeather> hmLastWeathers = new HashMap<>();
     
     private FileConfiguration config;
     
@@ -93,11 +94,11 @@ public class VanillaWeatherListener implements Listener {
         }
     }
     
-    private void weatherTurningBad(Weather weather) {
+    private void weatherTurningBad(VanillaWeather weather) {
         String limitMethod = config.getString("limit-method");
         
         if (!weather.isEnabled()) {
-            weather.cancelVEvent();
+            weather.getvEvent();
         } else {
             switch (limitMethod) {
                 case "rand":
@@ -114,22 +115,22 @@ public class VanillaWeatherListener implements Listener {
         hmLastWeathers.put("clear", new Clear());
     }
     
-    private void randomLimit(Weather weather) {
+    private void randomLimit(VanillaWeather weather) {
         int min = (int) (weather.getFrequency() * 100);
         if (min + (Math.random() * (100 - min)) != 100) {
-            weather.cancelVEvent();
+            weather.cancel();
         } else {
             hmLastWeathers.put(weather.getName(), weather);
         }
     }
     
-    private void ticksLimit(Weather weather) {
+    private void ticksLimit(VanillaWeather weather) {
         if (hmLastWeathers.containsKey(weather.getName())) {
             Date now = new Date();
             if (now.getTime() - weather.getTime() >= (weather.getTicks() / 20) * 1000) {
                 hmLastWeathers.put(weather.getName(), weather);
             } else {
-                weather.cancelVEvent();
+                weather.cancel();
             }
         } else {
             hmLastWeathers.put(weather.getName(), weather);

@@ -25,19 +25,26 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.event.weather;
+package ch.ar.wc.env.vanilla.event.weather;
 
-import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
+import ch.ar.wc.env.event.weather.Weather;
+import org.bukkit.event.weather.WeatherEvent;
 
 /**
  *
  * @author Arei
  */
-public class Clear extends VanillaWeather {
-    public Clear() {
-        super("Clear", "clear", null);
+public abstract class VanillaWeather extends Weather {
+    protected WeatherEvent vEvent;
+    
+    public VanillaWeather(String name, String prefix, WeatherEvent vEvent) {
+        super(name, prefix, vEvent.getWorld());
+        this.vEvent = vEvent;
     }
 
-    @Override
-    public void cancel() {}
+    public abstract void cancel();
+    
+    public WeatherEvent getvEvent() {
+        return vEvent;
+    }
 }

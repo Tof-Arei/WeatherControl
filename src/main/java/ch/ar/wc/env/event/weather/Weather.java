@@ -29,8 +29,8 @@ package ch.ar.wc.env.event.weather;
 
 import ch.ar.wc.WeatherControl;
 import ch.ar.wc.env.event.WCEvent;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.weather.WeatherEvent;
 
 /**
  *
@@ -45,9 +45,9 @@ public abstract class Weather extends WCEvent {
     private final int ticks;
     private final int duration;
     
-    protected final WeatherEvent vEvent;
-    
-    public Weather(String name, String prefix, WeatherEvent vEvent) {
+    private final World world;
+
+    public Weather(String name, String prefix, World world) {
         this.name = name;
         this.prefix = prefix;
         
@@ -58,7 +58,7 @@ public abstract class Weather extends WCEvent {
         ticks = config.getInt(prefix + "-ticks");
         duration = config.getInt(prefix + "-frequency");
         
-        this.vEvent = vEvent;
+        this.world = world;
     }
 
     public String getName() {
@@ -84,10 +84,8 @@ public abstract class Weather extends WCEvent {
     public int getDuration() {
         return duration;
     }
-
-    public WeatherEvent getVEvent() {
-        return vEvent;
-    }
     
-    public abstract void cancelVEvent();
+    public World getWorld() {
+        return world;
+    }
 }
