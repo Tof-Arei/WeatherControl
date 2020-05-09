@@ -35,6 +35,8 @@ verbose: false
 rain-enabled: true
 # Are storms enabled ?
 storms-enabled: true
+# Lightning strikes enabled ?
+lightning-enabled: true
 
 # Use custom weather or vanilla weather ?
 custom-weather: false
@@ -50,11 +52,14 @@ limit-method: rand
 rain-frequency: 1
 # Storm probability. 1 = 100% = default.
 storms-frequency: 1
+# Ligthning strikes frequency. 1 = 100% = default;
 
 # Minimum ticks after last rain before it can rain again.
 rain-ticks: 48000
 # Minimum ticks after last storm before it can storm again.
 storms-ticks: 96000
+# Minimum ticks before lightning can strike again.
+lightning-ticks: 300
 
 
 # Custom weather settings

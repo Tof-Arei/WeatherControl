@@ -25,12 +25,13 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc;
+package ch.ar.wc.env.vanilla;
 
-import ch.ar.wc.env.event.weather.Clear;
-import ch.ar.wc.env.event.weather.Rain;
-import ch.ar.wc.env.event.weather.Storm;
+import ch.ar.wc.event.weather.Clear;
+import ch.ar.wc.event.weather.Rain;
+import ch.ar.wc.event.weather.Storm;
 import ch.ar.wc.env.event.weather.Weather;
+import ch.ar.wc.event.weather.LightningStrike;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +47,7 @@ import org.bukkit.event.weather.WeatherChangeEvent;
  *
  * @author Arei
  */
-public class WeatherListener implements Listener {
+public class VanillaWeatherListener implements Listener {
     private static final Map<String, Weather> hmLastWeathers = new HashMap<>();
     
     private FileConfiguration config;
@@ -84,7 +85,12 @@ public class WeatherListener implements Listener {
     // Vanilla lightning strike event.
     @EventHandler
     public void onThunder(LightningStrikeEvent e) {
-        
+        // Have we taken weather over ?
+        if (config.getBoolean("custom-eather")) {
+            e.setCancelled(true);
+        } else {
+            weatherTurningBad(new LightningStrike(e));
+        }
     }
     
     private void weatherTurningBad(Weather weather) {

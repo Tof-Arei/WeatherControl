@@ -25,21 +25,22 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env.event.weather;
+package ch.ar.wc.event.weather;
 
-import org.bukkit.event.weather.ThunderChangeEvent;
+import ch.ar.wc.env.event.weather.Weather;
+import org.bukkit.event.weather.WeatherChangeEvent;
 
 /**
  *
  * @author Arei
  */
-public class Storm extends Weather {
-    public Storm(ThunderChangeEvent vEvent) {
-        super("Storm", "storms", vEvent);
+public class Rain extends Weather {
+    public Rain(WeatherChangeEvent vEvent) {
+        super("Rain", "rain", vEvent);
     }
 
     @Override
     public void cancelVEvent() {
-        ((ThunderChangeEvent) vEvent).setCancelled(true);
+        ((WeatherChangeEvent) vEvent).setCancelled(true);
     }
 }

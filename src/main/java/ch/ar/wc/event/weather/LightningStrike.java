@@ -25,17 +25,18 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env.event.weather;
+package ch.ar.wc.event.weather;
 
+import ch.ar.wc.env.event.weather.Weather;
 import org.bukkit.event.weather.LightningStrikeEvent;
 
 /**
  *
  * @author Arei
  */
-public class Lightning extends Weather {
-    public Lightning(LightningStrikeEvent vEvent) {
-        super("Lightning", "light", vEvent);
+public class LightningStrike extends Weather {
+    public LightningStrike(LightningStrikeEvent vEvent) {
+        super("LightningStrike", "lightning", vEvent);
     }
 
     @Override

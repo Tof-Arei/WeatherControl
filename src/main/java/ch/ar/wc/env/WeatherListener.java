@@ -25,17 +25,12 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env.event.weather;
+package ch.ar.wc.env;
 
 /**
  *
  * @author Arei
  */
-public class Clear extends Weather {
-    public Clear() {
-        super("Clear", "clear", null);
-    }
-
-    @Override
-    public void cancelVEvent() {}
+public class WeatherListener {
+    
 }
