@@ -27,30 +27,28 @@
 #
 # WeatherControl config
 
+# General settings
 # Verbose ? If true, console will log information and users with wc.verbose permission will receive messages about WeatherEvents.
 verbose: false
 
-# Is rain disabled ?
+# Is rain enabled ?
 rain-enabled: true
-# Are storms disabled ?
+# Are storms enabled ?
 storms-enabled: true
 
-# Use custom rain/storms duration ?
-custom-duration: false
+# Use custom weather or vanilla weather ?
+custom-weather: false
 
-# Minimum rain duration in ticks.
-rain-duration: 6000
-# Minimum storm duration in ticks.
-storms-duration: 6000
 
+# Vanilla weather settings
 # limit-method :
 # - rand    : Uses rain-frequency and storms-frequency to randomly lower rain/storms probability.
-# - ticks   : Enforces a given ticks number of mandatory wait before the weather can turn bad again.
+# - ticks   : Uses rain-ticks and storms-ticks to enforce a mandatory waiting time before the weather can turn bad again.
 limit-method: rand
 
-# Rain probability. 1 = 100% = vanilla.
+# Rain probability. 1 = 100% = default.
 rain-frequency: 1
-# Storm probability. 1 = 100% = vanilla.
+# Storm probability. 1 = 100% = default.
 storms-frequency: 1
 
 # Minimum ticks after last rain before it can rain again.
@@ -58,3 +56,9 @@ rain-ticks: 48000
 # Minimum ticks after last storm before it can storm again.
 storms-ticks: 96000
 
+
+# Custom weather settings
+# Minimum rain duration in ticks.
+rain-duration: 6000
+# Minimum storm duration in ticks.
+storms-duration: 6000

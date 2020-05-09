@@ -28,7 +28,6 @@
 package ch.ar.wc.commands;
 
 import ch.ar.wc.env.commands.CommandTemplate;
-import ch.ar.wc.WeatherControl;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -39,9 +38,7 @@ import org.bukkit.configuration.file.FileConfiguration;
  * @author Arei
  */
 public class Info  extends CommandTemplate {
-    public Info(WeatherControl plugin) {
-        super(plugin);
-        
+    public Info() {
         name = "info";
         permission = "wc.cmd.info";
         minArgs = 0;
@@ -56,19 +53,6 @@ public class Info  extends CommandTemplate {
         for (String key : config.getKeys(false)) {
             sender.sendMessage(key + " : " + config.get(key));
         }
-        
-        /*sender.sendMessage("Outputing the content of WeatherControl config.yml :");
-        sender.sendMessage("Verbose mode : " + config.getBoolean("verbose"));
-        sender.sendMessage("Rain enabled : " + config.getBoolean("rain-enabled"));
-        sender.sendMessage("Storms enabled : " + config.getBoolean("storms-enabled"));
-        sender.sendMessage("Rain duration : " + config.getLong("rain-duration"));
-        sender.sendMessage("Storms duration : " + config.getLong("storms-duration"));
-        sender.sendMessage("Limit method : " + config.getString("limit-method"));
-        sender.sendMessage("Custom duration enabled : " + config.getBoolean("custom-duration"));
-        sender.sendMessage("Rain frequency : " + config.getDouble("rain-frequency"));
-        sender.sendMessage("Storms frequency : " + config.getDouble("storms-frequency"));
-        sender.sendMessage("Rain ticks : " + config.getLong("rain-ticks"));
-        sender.sendMessage("Storms ticks : " + config.getLong("storms-ticks"));*/
         
         return true;
     }

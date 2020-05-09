@@ -86,9 +86,9 @@ public class WCCommandExecutor implements CommandExecutor {
     }
     
     private void registerCommands() {
-        addCommand(new Info(plugin));
-        addCommand(new Help(plugin));
-        addCommand(new Set(plugin));
+        addCommand(new Info());
+        addCommand(new Help());
+        addCommand(new Set());
     }
     
     private void addCommand(CommandTemplate command) {

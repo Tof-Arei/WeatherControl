@@ -25,26 +25,21 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.commands;
+package ch.ar.wc.env.event.weather;
 
-import ch.ar.wc.env.commands.CommandTemplate;
-import java.util.List;
-import org.bukkit.command.CommandSender;
+import org.bukkit.event.weather.ThunderChangeEvent;
 
 /**
  *
  * @author Arei
  */
-public class Help extends CommandTemplate {
-    public Help() {
-        name = "help";
-        permission = "wc.cmd.help";
-        minArgs = 1;
-        help = "/<wc|weathercontrol> <help>";
+public class Storm extends Weather {
+    public Storm(ThunderChangeEvent vEvent) {
+        super("Storm", "storms", vEvent);
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, List<String> args) {
-        return false;
+    public void cancelVEvent() {
+        ((ThunderChangeEvent) vEvent).setCancelled(true);
     }
 }

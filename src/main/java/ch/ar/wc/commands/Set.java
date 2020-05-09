@@ -38,9 +38,7 @@ import org.bukkit.configuration.file.FileConfiguration;
  * @author Arei
  */
 public class Set extends CommandTemplate {
-    public Set(WeatherControl plugin) {
-        super(plugin);
-        
+    public Set() {
         name = "set";
         permission = "wc.cmd.set";
         minArgs = 2;
@@ -49,7 +47,7 @@ public class Set extends CommandTemplate {
 
     @Override
     public boolean onCommand(CommandSender sender, List<String> args) {
-        FileConfiguration config = plugin.getConfig();
+        FileConfiguration config = WeatherControl.getPlugin().getConfig();
         
         if (config.contains(args.get(0))) {
             if (config.isBoolean(args.get(0))) {
@@ -63,7 +61,7 @@ public class Set extends CommandTemplate {
             }
             
             sender.sendMessage("Storms probability set to " + args.get(0));
-            plugin.saveConfig();
+            WeatherControl.getPlugin().saveConfig();
             
             return true;
         }

@@ -36,10 +36,13 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Arei
  */
 public class WeatherControl extends JavaPlugin {
+    private static WeatherControl instance = null;
+    
     private FileConfiguration config = getConfig();
     
     @Override
     public void onEnable() {
+        instance = this;
         config();
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
         getCommand("wc").setExecutor(new WCCommandExecutor(this));
@@ -49,7 +52,7 @@ public class WeatherControl extends JavaPlugin {
         config.addDefault("verbose", false);
         config.addDefault("rain-enabled", true);
         config.addDefault("storms-enabled", true);
-        config.addDefault("custom-duration", false);
+        config.addDefault("custom-weather", false);
         config.addDefault("rain-duration", 6000);
         config.addDefault("storms-duration", 6000);
         config.addDefault("limit-method", "rand");
@@ -66,5 +69,9 @@ public class WeatherControl extends JavaPlugin {
         config.options().copyDefaults(true);
         super.saveConfig();
         reloadConfig();
+    }
+    
+    public static WeatherControl getPlugin() {
+        return instance;
     }
 }

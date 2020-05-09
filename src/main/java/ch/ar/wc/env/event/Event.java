@@ -25,26 +25,20 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.commands;
-
-import ch.ar.wc.env.commands.CommandTemplate;
-import java.util.List;
-import org.bukkit.command.CommandSender;
+package ch.ar.wc.env.event;
 
 /**
  *
  * @author Arei
  */
-public class Help extends CommandTemplate {
-    public Help() {
-        name = "help";
-        permission = "wc.cmd.help";
-        minArgs = 1;
-        help = "/<wc|weathercontrol> <help>";
+public abstract class Event {
+    private long time;
+    
+    public Event() {
+        time = System.currentTimeMillis();
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, List<String> args) {
-        return false;
+    public long getTime() {
+        return time;
     }
 }

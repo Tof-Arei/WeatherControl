@@ -27,11 +27,18 @@
  */
 package ch.ar.wc;
 
+import ch.ar.wc.env.event.weather.Clear;
+import ch.ar.wc.env.event.weather.Rain;
+import ch.ar.wc.env.event.weather.Storm;
+import ch.ar.wc.env.event.weather.Weather;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
@@ -40,132 +47,86 @@ import org.bukkit.event.weather.WeatherChangeEvent;
  * @author Arei
  */
 public class WeatherListener implements Listener {
-    private static long lastRain = 0;
-    private static long lastStorm = 0;
+    private static final Map<String, Weather> hmLastWeathers = new HashMap<>();
     
     private FileConfiguration config;
     
+    // Vanilla rain event.
     @EventHandler
     public void onRain(WeatherChangeEvent e) {
         config = Bukkit.getServer().getPluginManager().getPlugin("WeatherControl").getConfig();
         
-        if (e.toWeatherState()) {
-            aboutToRain(e);
+        // Have we taken weather over ?
+        if (config.getBoolean("custom-weather")) {
+            // Cancel vanilla rain event.
+            e.setCancelled(true);
         } else {
-            aboutToStopRaining(e);
+            // Apply vanilla rain settings.
+            weatherTurningBad(new Rain(e));
         }
     }
     
+    // Vanilla storm event.
     @EventHandler
     public void onStorm(ThunderChangeEvent e) {
         config = Bukkit.getServer().getPluginManager().getPlugin("WeatherControl").getConfig();
         
-        if (e.toThunderState()) {
-            aboutToStorm(e);
+        // Have we taken weather over ?
+        if (config.getBoolean("custom-weather")) {
+            // Cancel vanilla storm event.
+            e.setCancelled(true);
         } else {
-            aboutToStopStorming(e);
+            // Apply vanilla storms settings.
+            weatherTurningBad(new Storm(e));
         }
     }
     
-    private void aboutToRain(WeatherChangeEvent e) {
-        String limitMethod = config.getString("limit-method");
-        boolean rainEnabled = config.getBoolean("rain-enabled");
-        int rainFrequency = config.getInt("rain-frequency");
-        int rainTicks = config.getInt("rain-ticks");
+    // Vanilla lightning strike event.
+    @EventHandler
+    public void onThunder(LightningStrikeEvent e) {
         
-        if (!rainEnabled) {
-            e.setCancelled(true);
+    }
+    
+    private void weatherTurningBad(Weather weather) {
+        String limitMethod = config.getString("limit-method");
+        
+        if (!weather.isEnabled()) {
+            weather.cancelVEvent();
         } else {
             switch (limitMethod) {
                 case "rand":
-                    randomRainLimit(e, rainFrequency);
+                    randomLimit(weather);
                     break;
                 case "ticks":
-                    ticksRainLimit(e, rainTicks);
+                    ticksLimit(weather);
                     break;
             }
         }
     }
     
-    private void aboutToStorm(ThunderChangeEvent e) {
-        String limitMethod = config.getString("limit-method");
-        boolean stormsEnabled = config.getBoolean("storms-enabled");
-        int stormsFrequency = config.getInt("storms-frequency");
-        int stormsTicks = config.getInt("storms-ticks");
-
-        if (!stormsEnabled) {                
-            e.setCancelled(true);
-        } else {
-            switch (limitMethod) {
-                case "rand":
-                    randomStormsLimit(e, stormsFrequency);
-                    break;
-                case "ticks":
-                    ticksStormsLimit(e, stormsTicks);
-                    break;
-            }
-        }
+    private void weatherTurningGood() {
+        hmLastWeathers.put("clear", new Clear());
     }
     
-    private void randomRainLimit(WeatherChangeEvent e, double rainFrequency) {     
-        Date now = new Date();
-        
-        int min = (int) (rainFrequency * 100);
+    private void randomLimit(Weather weather) {
+        int min = (int) (weather.getFrequency() * 100);
         if (min + (Math.random() * (100 - min)) != 100) {
-            e.setCancelled(true);
+            weather.cancelVEvent();
         } else {
-            lastRain = now.getTime();
+            hmLastWeathers.put(weather.getName(), weather);
         }
     }
     
-    private void randomStormsLimit(ThunderChangeEvent e, double stormsFrequency) {     
-        Date now = new Date();
-        
-        int min = (int) (stormsFrequency * 100);
-        if (min + (Math.random() * (100 - min)) != 100) {
-            e.setCancelled(true);
+    private void ticksLimit(Weather weather) {
+        if (hmLastWeathers.containsKey(weather.getName())) {
+            Date now = new Date();
+            if (now.getTime() - weather.getTime() >= (weather.getTicks() / 20) * 1000) {
+                hmLastWeathers.put(weather.getName(), weather);
+            } else {
+                weather.cancelVEvent();
+            }
         } else {
-            lastStorm = now.getTime();
-        }
-    }
-    
-    private void ticksRainLimit(WeatherChangeEvent e, long rainTicks) {
-        Date now = new Date();
-        if (e.getWorld().isThundering()) {
-            if (now.getTime() - lastStorm >= (rainTicks / 20) * 1000) {
-                lastStorm = now.getTime();
-            } else {
-                e.setCancelled(true);
-            }
-        }
-    }
-    
-    private void ticksStormsLimit(ThunderChangeEvent e, long stormsTicks) {
-        Date now = new Date();
-        if (e.toThunderState()) {
-            if (now.getTime() - lastStorm >= (stormsTicks / 20) * 1000) {
-                lastStorm = now.getTime();
-            } else {
-                e.setCancelled(true);
-            }
-        }
-    }
-    
-    private void aboutToStopRaining(WeatherChangeEvent e) {
-        if (config.getBoolean("custom-duration")) {
-            Date now = new Date();
-            if (now.getTime() - lastRain < (config.getLong("rain-duration") / 20) * 1000) {
-                e.setCancelled(true);
-            }
-        }
-    }
-    
-    private void aboutToStopStorming(ThunderChangeEvent e) {
-        if (config.getBoolean("custom-duration")) {
-            Date now = new Date();
-            if (now.getTime() - lastStorm < (config.getLong("storms-duration") / 20) * 1000) {
-                e.setCancelled(true);
-            }
+            hmLastWeathers.put(weather.getName(), weather);
         }
     }
 }
