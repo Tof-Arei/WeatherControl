@@ -58,14 +58,17 @@ public class WeatherControl extends JavaPlugin {
         config.addDefault("verbose", false);
         config.addDefault("rain-enabled", true);
         config.addDefault("storms-enabled", true);
+        config.addDefault("lightning-enabled", true);
         config.addDefault("custom-weather", false);
         config.addDefault("rain-duration", 6000);
         config.addDefault("storms-duration", 6000);
         config.addDefault("limit-method", "rand");
         config.addDefault("rain-frequency", 1);
         config.addDefault("storms-frequency", 1);
+        config.addDefault("lightning-frequency", 1);
         config.addDefault("rain-ticks", 48000);
         config.addDefault("storms-ticks", 96000);
+        config.addDefault("lightning-ticks", 600);
         
         saveDefaultConfig();
     }

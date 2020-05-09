@@ -53,13 +53,14 @@ rain-frequency: 1
 # Storm probability. 1 = 100% = default.
 storms-frequency: 1
 # Ligthning strikes frequency. 1 = 100% = default;
+lightning-frequency: 1
 
 # Minimum ticks after last rain before it can rain again.
 rain-ticks: 48000
 # Minimum ticks after last storm before it can storm again.
 storms-ticks: 96000
 # Minimum ticks before lightning can strike again.
-lightning-ticks: 300
+lightning-ticks: 600
 
 
 # Custom weather settings
