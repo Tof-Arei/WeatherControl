@@ -37,13 +37,15 @@ import org.bukkit.event.HandlerList;
 public abstract class WCEvent extends Event {
     private final long time;
     
+    private static final HandlerList handlers = new HandlerList();
+    
     public WCEvent() {
         time = System.currentTimeMillis();
     }
     
     @Override
     public HandlerList getHandlers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return handlers;
     }
 
     public long getTime() {
