@@ -60,3 +60,6 @@ permissions:
     wc.cmd.set:
         description: Controls the plugin settings.
         default: op
+    wc.verbose:
+        description: Players with this permission will recieve information whene verbose=true.
+        default: op

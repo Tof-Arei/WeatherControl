@@ -27,7 +27,6 @@
  */
 package ch.ar.wc.env.vanilla;
 
-import ch.ar.wc.vanilla.event.weather.Clear;
 import ch.ar.wc.vanilla.event.weather.Rain;
 import ch.ar.wc.vanilla.event.weather.Storm;
 import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
@@ -89,6 +88,7 @@ public class VanillaWeatherListener implements Listener {
         if (config.getBoolean("custom-eather")) {
             e.setCancelled(true);
         } else {
+            // Cancel vanilla lightning strike event.
             weatherTurningBad(new LightningStrike(e));
         }
     }
