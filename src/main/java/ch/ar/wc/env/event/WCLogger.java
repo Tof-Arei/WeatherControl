@@ -36,12 +36,6 @@ import org.bukkit.entity.Player;
  * @author Arei
  */
 public class WCLogger {
-    public static final int ERROR = 0;
-    public static final int WARNING = 1;
-    public static final int WCHANGE = 2;
-    public static final int WEVENT = 3;
-    public static final int DEBUG = 4;
-    
     public static void log(String message, int level) {
         if (WeatherControl.getPlugin().getConfig().getInt("verbose-level") >= level) {
             message = "[" + WeatherControl.SHORTNAME + "] " + message;
@@ -52,5 +46,13 @@ public class WCLogger {
                 }
             }
         }
+    }
+    
+    public class Level {
+        public static final int ERROR = 0;
+        public static final int WARNING = 1;
+        public static final int WCHANGE = 2;
+        public static final int WEVENT = 3;
+        public static final int DEBUG = 4;
     }
 }

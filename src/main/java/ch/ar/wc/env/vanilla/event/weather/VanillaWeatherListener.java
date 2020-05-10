@@ -30,7 +30,7 @@ package ch.ar.wc.env.vanilla.event.weather;
 import ch.ar.wc.env.event.WCLogger;
 import ch.ar.wc.vanilla.event.weather.Rain;
 import ch.ar.wc.vanilla.event.weather.Storm;
-import ch.ar.wc.vanilla.event.weather.LightningStrike;
+//import ch.ar.wc.vanilla.event.weather.LightningStrike;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +38,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.weather.LightningStrikeEvent;
+//import org.bukkit.event.weather.LightningStrikeEvent;
 //import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
@@ -51,7 +51,7 @@ public class VanillaWeatherListener implements Listener {
     
     private FileConfiguration config;
     
-    // Vanilla rain event.
+    // Vanilla weather change event.
     @EventHandler
     public void onRain(WeatherChangeEvent e) {
         config = Bukkit.getServer().getPluginManager().getPlugin("WeatherControl").getConfig();
@@ -63,9 +63,9 @@ public class VanillaWeatherListener implements Listener {
         } else {
             // Apply vanilla rain settings.
             if (e.getWorld().hasStorm()) {
-                weatherTurningBad(new Storm(e));
-            } else {
                 weatherTurningBad(new Rain(e));
+            } else if (e.getWorld().isThundering()) {
+                weatherTurningBad(new Storm(e));
             }
         }
     }
@@ -86,7 +86,7 @@ public class VanillaWeatherListener implements Listener {
     }*/
     
     // Vanilla lightning strike event.
-    @EventHandler
+    /*@EventHandler
     public void onThunder(LightningStrikeEvent e) {
         // Have we taken weather over ?
         if (config.getBoolean("custom-weather")) {
@@ -95,7 +95,7 @@ public class VanillaWeatherListener implements Listener {
             // Cancel vanilla lightning strike event.
             weatherTurningBad(new LightningStrike(e));
         }
-    }
+    }*/
     
     private void weatherTurningBad(VanillaWeather weather) {
         String limitMethod = config.getString("limit-method");
@@ -103,7 +103,7 @@ public class VanillaWeatherListener implements Listener {
         if (!weather.isEnabled()) {
             weather.cancel();
         } else {
-            WCLogger.log("Weather trying to change to " + weather.getName(), WCLogger.WEVENT);
+            WCLogger.log("Weather trying to change to " + weather.getName(), WCLogger.Level.WEVENT);
             switch (limitMethod) {
                 case "rand":
                     randomLimit(weather);
@@ -120,27 +120,27 @@ public class VanillaWeatherListener implements Listener {
         int rand = (int) (Math.random() * 100 - 0);
         
         if (rand >= 0 && rand <= freq) {
-            WCLogger.log("Weather changed to " + weather.getName(), WCLogger.WCHANGE);
+            WCLogger.log("Weather changed to " + weather.getName(), WCLogger.Level.WCHANGE);
             hmLastWeathers.put(weather.getName(), weather);
         } else {
-            WCLogger.log("Weather " + weather.getName() + "canceled.", WCLogger.WEVENT);
+            WCLogger.log("Weather " + weather.getName() + "canceled.", WCLogger.Level.WEVENT);
             weather.cancel();
         }
-        WCLogger.log("freq=" + freq + " rand=" + rand, WCLogger.DEBUG);
+        WCLogger.log("freq=" + freq + " rand=" + rand, WCLogger.Level.DEBUG);
     }
     
     private void ticksLimit(VanillaWeather weather) {
         if (hmLastWeathers.containsKey(weather.getName())) {
             Date now = new Date();
             if (now.getTime() - weather.getTime() >= (weather.getTicks() / 20) * 1000) {
-                WCLogger.log("Weather changed to " + weather.getName(), WCLogger.WCHANGE);
+                WCLogger.log("Weather changed to " + weather.getName(), WCLogger.Level.WCHANGE); 
                 hmLastWeathers.put(weather.getName(), weather);
             } else {
-                WCLogger.log("Weather " + weather.getName() + "canceled.", WCLogger.WEVENT);
+                WCLogger.log("Weather " + weather.getName() + "canceled.", WCLogger.Level.WEVENT);
                 weather.cancel();
             }
         } else {
-            WCLogger.log("Weather changed to " + weather.getName(), WCLogger.WCHANGE);
+            WCLogger.log("Weather changed to " + weather.getName(), WCLogger.Level.WCHANGE);
             hmLastWeathers.put(weather.getName(), weather);
         }
     }
