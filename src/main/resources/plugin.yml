@@ -61,5 +61,5 @@ permissions:
         description: Controls the plugin settings.
         default: op
     wc.verbose:
-        description: Players with this permission will recieve information whene verbose=true.
+        description: Players with this permission will receive informations about weather events when verbose=true.
         default: op

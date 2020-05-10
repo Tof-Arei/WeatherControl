@@ -111,11 +111,13 @@ public class VanillaWeatherListener implements Listener {
     }
     
     private void randomLimit(VanillaWeather weather) {
-        int min = (int) (weather.getFrequency() * 100);
-        if (min + (Math.random() * (100 - min)) != 100) {
-            weather.cancel();
-        } else {
+        int freq = (int) (weather.getFrequency() * 100);
+        int rand = (int) (Math.random() * (0 - 100));
+        
+        if (rand >= 0 && rand <= freq) {
             hmLastWeathers.put(weather.getName(), weather);
+        } else {
+            weather.cancel();
         }
     }
     
