@@ -29,7 +29,6 @@ package ch.ar.wc.env.event.weather;
 
 import ch.ar.wc.WeatherControl;
 import ch.ar.wc.env.event.WCEvent;
-import ch.ar.wc.env.event.WeatherLogger;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -60,8 +59,6 @@ public abstract class Weather extends WCEvent {
         duration = config.getInt(prefix + "-frequency");
         
         this.world = world;
-        
-        WeatherLogger.log(this);
     }
 
     public String getName() {

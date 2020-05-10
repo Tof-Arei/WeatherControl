@@ -29,7 +29,7 @@ package ch.ar.wc;
 
 import ch.ar.wc.env.WorldListener;
 import ch.ar.wc.env.event.weather.WeatherListener;
-import ch.ar.wc.env.vanilla.VanillaWeatherListener;
+import ch.ar.wc.env.vanilla.event.weather.VanillaWeatherListener;
 import ch.ar.wc.env.commands.WCCommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,6 +38,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Arei
  */
 public class WeatherControl extends JavaPlugin {
+    public static final String NAME = "WeatherControl";
+    public static final String SHORTNAME = "WC";
+    public static final String VERSION = "1.0.0";
+    public static final String MINECRAFT_VERSION = "1.12.2";
+    
     private static WeatherControl instance = null;
     
     private final FileConfiguration config = getConfig();
@@ -49,11 +54,13 @@ public class WeatherControl extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        
         config();
-        
         vWeatherListener = new VanillaWeatherListener();
         getServer().getPluginManager().registerEvents(vWeatherListener, this);
+        initCustomWeather();
+    }
+    
+    private void initCustomWeather() {
         if (config.getBoolean("custom-weather")) {
             worldListener = new WorldListener();
             getServer().getPluginManager().registerEvents(worldListener, this);
@@ -66,6 +73,7 @@ public class WeatherControl extends JavaPlugin {
     
     private void config() {
         config.addDefault("verbose", false);
+        config.addDefault("verbose-level", 0);
         config.addDefault("rain-enabled", true);
         config.addDefault("storms-enabled", true);
         config.addDefault("lightning-enabled", true);

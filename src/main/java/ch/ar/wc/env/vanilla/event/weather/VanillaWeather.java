@@ -43,8 +43,4 @@ public abstract class VanillaWeather extends Weather {
     }
 
     public abstract void cancel();
-    
-    public WeatherEvent getvEvent() {
-        return vEvent;
-    }
 }

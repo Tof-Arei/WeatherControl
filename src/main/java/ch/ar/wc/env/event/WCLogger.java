@@ -27,7 +27,7 @@
  */
 package ch.ar.wc.env.event;
 
-import ch.ar.wc.env.event.weather.Weather;
+import ch.ar.wc.WeatherControl;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -35,14 +35,21 @@ import org.bukkit.entity.Player;
  *
  * @author Arei
  */
-public class WeatherLogger {
-    public static void log(Weather weather) {
-        String logLine = weather.getName();
-        
-        Bukkit.getLogger().info(logLine);
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.hasPermission("wc.verbose")) {
-                player.sendMessage(logLine);
+public class WCLogger {
+    public static final int ERROR = 0;
+    public static final int WARNING = 1;
+    public static final int WCHANGE = 2;
+    public static final int WEVENT = 3;
+    public static final int DEBUG = 4;
+    
+    public static void log(String message, int level) {
+        if (WeatherControl.getPlugin().getConfig().getInt("verbose-level") >= level) {
+            message = "[" + WeatherControl.SHORTNAME + "] " + message;
+            Bukkit.getLogger().info(message);
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (player.hasPermission("wc.verbose")) {
+                    player.sendMessage(message);
+                }
             }
         }
     }

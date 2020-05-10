@@ -28,19 +28,19 @@
 package ch.ar.wc.vanilla.event.weather;
 
 import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
-import org.bukkit.event.weather.ThunderChangeEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 
 /**
  *
  * @author Arei
  */
 public class Storm extends VanillaWeather {
-    public Storm(ThunderChangeEvent vEvent) {
+    public Storm(WeatherChangeEvent vEvent) {
         super("Storm", "storms", vEvent);
     }
     
     @Override
     public void cancel() {
-        ((ThunderChangeEvent) vEvent).setCancelled(true);
+        ((WeatherChangeEvent) vEvent).setCancelled(true);
     }
 }

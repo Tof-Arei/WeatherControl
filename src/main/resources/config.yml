@@ -29,6 +29,13 @@
 # General settings
 # Verbose ? If true, console will log informations and users with wc.verbose permission will receive messages about WeatherEvents.
 verbose: false
+# The level of verbosity :
+# 0 : Errors.
+# 1 : Errors + Warnings.
+# 2 : Errors + Warnings + Weather changes.
+# 3 : Errors + Warnings + Weather changes + weather events.
+# 4 : Errors + Warning + Weather changes + weather events + debug messages.
+verbose-level: 0
 
 # Is rain enabled ?
 rain-enabled: true
