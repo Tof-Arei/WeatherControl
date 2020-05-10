@@ -27,9 +27,9 @@
  */
 package ch.ar.wc;
 
-import ch.ar.wc.env.WorldListener;
-import ch.ar.wc.env.event.weather.WeatherListener;
-import ch.ar.wc.env.vanilla.event.weather.VanillaWeatherListener;
+import ch.ar.wc.listeners.WorldListener;
+import ch.ar.wc.listeners.WeatherListener;
+import ch.ar.wc.vanilla.listeners.VanillaWeatherListener;
 import ch.ar.wc.env.commands.WCCommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;

@@ -25,9 +25,10 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env.vanilla.event.weather;
+package ch.ar.wc.vanilla.listeners;
 
 import ch.ar.wc.env.event.WCLogger;
+import ch.ar.wc.vanilla.env.event.weather.VanillaWeather;
 import ch.ar.wc.vanilla.event.weather.Rain;
 import ch.ar.wc.vanilla.event.weather.Storm;
 //import ch.ar.wc.vanilla.event.weather.LightningStrike;
@@ -58,10 +59,10 @@ public class VanillaWeatherListener implements Listener {
         
         // Have we taken weather over ?
         if (config.getBoolean("custom-weather")) {
-            // Cancel vanilla rain event.
+            // Cancel vanilla weather event.
             e.setCancelled(true);
         } else {
-            // Apply vanilla rain settings.
+            // Apply vanilla weather settings.
             if (e.getWorld().hasStorm()) {
                 weatherTurningBad(new Rain(e));
             } else if (e.getWorld().isThundering()) {

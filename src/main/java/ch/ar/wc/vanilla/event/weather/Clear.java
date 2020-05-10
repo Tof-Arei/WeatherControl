@@ -27,7 +27,7 @@
  */
 package ch.ar.wc.vanilla.event.weather;
 
-import ch.ar.wc.env.vanilla.event.weather.VanillaWeather;
+import ch.ar.wc.vanilla.env.event.weather.VanillaWeather;
 
 /**
  *

@@ -25,30 +25,30 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env.event.weather;
+package ch.ar.wc.listeners;
 
+import ch.ar.wc.WeatherControl;
 import ch.ar.wc.schedules.TrackTime;
-import java.util.HashMap;
-import java.util.Map;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 
 /**
  *
  * @author Arei
  */
-public class WeatherListener implements Listener {
-    private final Map<String, TrackTime> hmTrackTimes = new HashMap<>();
-    private final Map<String, String> hmOngoingWeathers = new HashMap<>();
-    
-    public void addTrackTime(String world, TrackTime trackTime) {
-        hmTrackTimes.put(world, trackTime);
+public class WorldListener implements Listener {
+    @EventHandler
+    public void onLoad(WorldLoadEvent e) {
+        TrackTime trackTime = new TrackTime(e.getWorld());
+        WeatherControl.getPlugin().getWeatherListener().addTrackTime(e.getWorld().getName(), trackTime);
+        trackTime.run();
     }
     
-    public TrackTime getTrackTime(String world) {
-        return hmTrackTimes.get(world);
-    }
-    
-    public void removeTrackTime(String world) {
-        hmTrackTimes.remove(world);
+    @EventHandler
+    public void onUnload(WorldUnloadEvent e) {
+        WeatherControl.getPlugin().getWeatherListener().getTrackTime(e.getWorld().getName()).cancel();
+        WeatherControl.getPlugin().getWeatherListener().removeTrackTime(e.getWorld().getName());
     }
 }

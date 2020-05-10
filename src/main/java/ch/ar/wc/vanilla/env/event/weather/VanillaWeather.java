@@ -25,30 +25,22 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env;
+package ch.ar.wc.vanilla.env.event.weather;
 
-import ch.ar.wc.WeatherControl;
-import ch.ar.wc.schedules.TrackTime;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.world.WorldLoadEvent;
-import org.bukkit.event.world.WorldUnloadEvent;
+import ch.ar.wc.env.event.weather.Weather;
+import org.bukkit.event.weather.WeatherEvent;
 
 /**
  *
  * @author Arei
  */
-public class WorldListener implements Listener {
-    @EventHandler
-    public void onLoad(WorldLoadEvent e) {
-        TrackTime trackTime = new TrackTime(e.getWorld());
-        WeatherControl.getPlugin().getWeatherListener().addTrackTime(e.getWorld().getName(), trackTime);
-        trackTime.run();
-    }
+public abstract class VanillaWeather extends Weather {
+    protected WeatherEvent vEvent;
     
-    @EventHandler
-    public void onUnload(WorldUnloadEvent e) {
-        WeatherControl.getPlugin().getWeatherListener().getTrackTime(e.getWorld().getName()).cancel();
-        WeatherControl.getPlugin().getWeatherListener().removeTrackTime(e.getWorld().getName());
+    public VanillaWeather(String name, String prefix, WeatherEvent vEvent) {
+        super(name, prefix, vEvent.getWorld());
+        this.vEvent = vEvent;
     }
+
+    public abstract void cancel();
 }

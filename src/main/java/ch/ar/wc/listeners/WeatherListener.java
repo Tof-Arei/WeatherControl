@@ -25,22 +25,30 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env.vanilla.event.weather;
+package ch.ar.wc.listeners;
 
-import ch.ar.wc.env.event.weather.Weather;
-import org.bukkit.event.weather.WeatherEvent;
+import ch.ar.wc.schedules.TrackTime;
+import java.util.HashMap;
+import java.util.Map;
+import org.bukkit.event.Listener;
 
 /**
  *
  * @author Arei
  */
-public abstract class VanillaWeather extends Weather {
-    protected WeatherEvent vEvent;
+public class WeatherListener implements Listener {
+    private final Map<String, TrackTime> hmTrackTimes = new HashMap<>();
+    private final Map<String, String> hmOngoingWeathers = new HashMap<>();
     
-    public VanillaWeather(String name, String prefix, WeatherEvent vEvent) {
-        super(name, prefix, vEvent.getWorld());
-        this.vEvent = vEvent;
+    public void addTrackTime(String world, TrackTime trackTime) {
+        hmTrackTimes.put(world, trackTime);
     }
-
-    public abstract void cancel();
+    
+    public TrackTime getTrackTime(String world) {
+        return hmTrackTimes.get(world);
+    }
+    
+    public void removeTrackTime(String world) {
+        hmTrackTimes.remove(world);
+    }
 }
