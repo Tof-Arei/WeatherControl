@@ -124,7 +124,7 @@ public class VanillaWeatherListener implements Listener {
             WCLogger.log("Weather changed to " + weather.getName(), WCLogger.Level.WCHANGE);
             hmLastWeathers.put(weather.getName(), weather);
         } else {
-            WCLogger.log("Weather " + weather.getName() + "canceled.", WCLogger.Level.WEVENT);
+            WCLogger.log("Weather " + weather.getName() + " canceled.", WCLogger.Level.WEVENT);
             weather.cancel();
         }
         WCLogger.log("freq=" + freq + " rand=" + rand, WCLogger.Level.DEBUG);
@@ -137,7 +137,7 @@ public class VanillaWeatherListener implements Listener {
                 WCLogger.log("Weather changed to " + weather.getName(), WCLogger.Level.WCHANGE); 
                 hmLastWeathers.put(weather.getName(), weather);
             } else {
-                WCLogger.log("Weather " + weather.getName() + "canceled.", WCLogger.Level.WEVENT);
+                WCLogger.log("Weather " + weather.getName() + " canceled.", WCLogger.Level.WEVENT);
                 weather.cancel();
             }
         } else {

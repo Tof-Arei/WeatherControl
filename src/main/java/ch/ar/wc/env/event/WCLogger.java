@@ -36,10 +36,21 @@ import org.bukkit.entity.Player;
  * @author Arei
  */
 public class WCLogger {
-    public static void log(String message, int level) {
-        if (WeatherControl.getPlugin().getConfig().getInt("verbose-level") >= level) {
-            message = "[" + WeatherControl.SHORTNAME + "] " + message;
-            Bukkit.getLogger().info(message);
+    public static void log(String message, Level level) {
+        if (WeatherControl.getPlugin().getConfig().getBoolean("verbose") && WeatherControl.getPlugin().getConfig().getInt("verbose-level") >= level.getLevel()) {
+            message = "[" + WeatherControl.SHORTNAME + "][" + level.getCode() + "] " + message;
+            
+            switch (level) {
+                case ERROR:
+                    Bukkit.getLogger().log(java.util.logging.Level.SEVERE, message);
+                    break;
+                case WARNING:
+                    Bukkit.getLogger().warning(message);
+                    break;
+                default:
+                    Bukkit.getLogger().info(message);
+            }   
+            
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (player.hasPermission("wc.verbose")) {
                     player.sendMessage(message);
@@ -48,11 +59,27 @@ public class WCLogger {
         }
     }
     
-    public class Level {
-        public static final int ERROR = 0;
-        public static final int WARNING = 1;
-        public static final int WCHANGE = 2;
-        public static final int WEVENT = 3;
-        public static final int DEBUG = 4;
+    public enum Level {
+        ERROR(0, "ERR"),
+        WARNING(1, "WRN"),
+        WCHANGE(2, "WCHNG"),
+        WEVENT(3, "WEVT"),
+        DEBUG(4, "DBG");
+        
+        private final int level;
+        private final String code;
+        
+        private Level(int level, String code) {
+            this.level = level;
+            this.code = code;
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public String getCode() {
+            return code;
+        }
     }
 }

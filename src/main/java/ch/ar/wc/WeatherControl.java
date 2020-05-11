@@ -89,6 +89,7 @@ public class WeatherControl extends JavaPlugin {
         config.addDefault("lightning-ticks", 600);
         
         saveDefaultConfig();
+        reloadConfig();
     }
     
     @Override
