@@ -118,7 +118,7 @@ public class VanillaWeatherListener implements Listener {
     
     private void randomLimit(VanillaWeather weather) {
         int freq = (int) (weather.getFrequency() * 100);
-        int rand = (int) (Math.random() * 100 - 0);
+        int rand = (int) (Math.random() * 100);
         
         if (rand >= 0 && rand <= freq) {
             WCLogger.log("Weather changed to " + weather.getName(), WCLogger.Level.WCHANGE);
