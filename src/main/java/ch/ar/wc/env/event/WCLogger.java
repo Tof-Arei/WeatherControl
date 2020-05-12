@@ -62,9 +62,10 @@ public class WCLogger {
     public enum Level {
         ERROR(0, "ERR"),
         WARNING(1, "WRN"),
-        WCHANGE(2, "WCHNG"),
-        WEVENT(3, "WEVT"),
-        DEBUG(4, "DBG");
+        INFO(2, "INFO"),
+        WCHANGE(3, "WCHNG"),
+        WEVENT(4, "WEVT"),
+        DEBUG(5, "DBG");
         
         private final int level;
         private final String code;

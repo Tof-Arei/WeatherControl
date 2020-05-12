@@ -61,9 +61,14 @@ public class VanillaWeatherListener implements Listener {
             // Cancel the vanilla rain event.
             e.setCancelled(true);
         } else {
+            WCLogger.log("onRain() called", WCLogger.Level.DEBUG);
+            
             // About to rain ?
             if (e.toWeatherState()) {
+                WCLogger.log("e.toWeatherState() => true", WCLogger.Level.DEBUG);
                 weatherTurningBad(new Rain(e));
+            } else if (e.getWorld().hasStorm()) {
+                // End of rain.
             }
         }
     }
@@ -78,16 +83,21 @@ public class VanillaWeatherListener implements Listener {
             // Cancel the vanilla storm event.
             e.setCancelled(true);
         } else {
+            WCLogger.log("onStorm() called", WCLogger.Level.DEBUG);
+            
             // About to storm ?
             if (e.toThunderState()) {
+                WCLogger.log("e.toThunderState() => true", WCLogger.Level.DEBUG);
                 weatherTurningBad(new Storm(e));
+            } else if (e.getWorld().isThundering()) {
+                // End of storm.
             }
         }
     }
     
     // Vanilla lightning strike event.
     @EventHandler
-    public void onThunder(LightningStrikeEvent e) {
+    public void onLightningStrike(LightningStrikeEvent e) {
         // Have we taken weather over ?
         if (config.getBoolean("custom-weather")) {
             // Cancel vanilla lightning strike event.

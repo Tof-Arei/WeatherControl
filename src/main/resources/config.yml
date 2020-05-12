@@ -32,9 +32,10 @@ verbose: false
 # The level of verbosity :
 # 0 : Errors.
 # 1 : Errors + Warnings.
-# 2 : Errors + Warnings + Weather changes.
-# 3 : Errors + Warnings + Weather changes + weather events.
-# 4 : Errors + Warning + Weather changes + weather events + debug messages.
+# 2 : Errors + Warnings + Info.
+# 3 : Errors + Warnings + Info + Weather changes.
+# 4 : Errors + Warnings + Info + Weather changes + weather events.
+# 5 : Errors + Warning + Info + Weather changes + weather events + debug messages.
 verbose-level: 0
 
 # Is rain enabled ?

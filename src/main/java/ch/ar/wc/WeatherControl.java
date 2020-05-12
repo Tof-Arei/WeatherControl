@@ -31,6 +31,7 @@ import ch.ar.wc.listeners.WorldListener;
 import ch.ar.wc.listeners.WeatherListener;
 import ch.ar.wc.vanilla.listeners.VanillaWeatherListener;
 import ch.ar.wc.env.commands.WCCommandExecutor;
+import ch.ar.wc.env.event.WCLogger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 /**
@@ -57,18 +58,19 @@ public class WeatherControl extends JavaPlugin {
         config();
         vWeatherListener = new VanillaWeatherListener();
         getServer().getPluginManager().registerEvents(vWeatherListener, this);
-        initCustomWeather();
+        if (config.getBoolean("custom-weather")) {
+            initCustomWeather();
+        }
+        getCommand("wc").setExecutor(new WCCommandExecutor(this));
+        WCLogger.log(NAME + " version " + VERSION + " started successfully.\n"
+                + "Using custom weather : " + config.getBoolean("custom-weather"), WCLogger.Level.INFO);
     }
     
     private void initCustomWeather() {
-        if (config.getBoolean("custom-weather")) {
-            worldListener = new WorldListener();
-            getServer().getPluginManager().registerEvents(worldListener, this);
-            weatherListener = new WeatherListener();
-            getServer().getPluginManager().registerEvents(weatherListener, this);
-        }
-        
-        getCommand("wc").setExecutor(new WCCommandExecutor(this));
+        worldListener = new WorldListener();
+        getServer().getPluginManager().registerEvents(worldListener, this);
+        weatherListener = new WeatherListener();
+        getServer().getPluginManager().registerEvents(weatherListener, this);
     }
     
     private void config() {
