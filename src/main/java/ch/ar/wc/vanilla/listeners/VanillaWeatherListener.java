@@ -39,8 +39,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-//import org.bukkit.event.weather.LightningStrikeEvent;
-//import org.bukkit.event.weather.ThunderChangeEvent;
+import org.bukkit.event.weather.LightningStrikeEvent;
+import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 /**
@@ -52,51 +52,50 @@ public class VanillaWeatherListener implements Listener {
     
     private FileConfiguration config;
     
-    // Vanilla weather change event.
     @EventHandler
     public void onRain(WeatherChangeEvent e) {
         config = Bukkit.getServer().getPluginManager().getPlugin("WeatherControl").getConfig();
         
         // Have we taken weather over ?
         if (config.getBoolean("custom-weather")) {
-            // Cancel vanilla weather event.
+            // Cancel the vanilla rain event.
             e.setCancelled(true);
         } else {
-            // Apply vanilla weather settings.
-            if (e.getWorld().hasStorm()) {
+            // About to rain ?
+            if (e.toWeatherState()) {
                 weatherTurningBad(new Rain(e));
-            } else if (e.getWorld().isThundering()) {
-                weatherTurningBad(new Storm(e));
             }
         }
     }
     
     // Vanilla storm event.
-    /*@EventHandler
+    @EventHandler
     public void onStorm(ThunderChangeEvent e) {
         config = Bukkit.getServer().getPluginManager().getPlugin("WeatherControl").getConfig();
         
         // Have we taken weather over ?
         if (config.getBoolean("custom-weather")) {
-            // Cancel vanilla storm event.
+            // Cancel the vanilla storm event.
             e.setCancelled(true);
         } else {
-            // Apply vanilla storms settings.
-            weatherTurningBad(new Storm(e));
+            // About to storm ?
+            if (e.toThunderState()) {
+                weatherTurningBad(new Storm(e));
+            }
         }
-    }*/
+    }
     
     // Vanilla lightning strike event.
-    /*@EventHandler
+    @EventHandler
     public void onThunder(LightningStrikeEvent e) {
         // Have we taken weather over ?
         if (config.getBoolean("custom-weather")) {
+            // Cancel vanilla lightning strike event.
             e.setCancelled(true);
         } else {
-            // Cancel vanilla lightning strike event.
-            weatherTurningBad(new LightningStrike(e));
+            //weatherTurningBad(new LightningStrike(e));
         }
-    }*/
+    }
     
     private void weatherTurningBad(VanillaWeather weather) {
         String limitMethod = config.getString("limit-method");
