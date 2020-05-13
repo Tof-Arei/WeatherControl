@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -61,14 +62,12 @@ public class VanillaWeatherListener implements Listener {
             // Cancel the vanilla rain event.
             e.setCancelled(true);
         } else {
-            WCLogger.log("onRain() called", WCLogger.Level.DEBUG);
-            
             // About to rain ?
             if (e.toWeatherState()) {
-                WCLogger.log("e.toWeatherState() => true", WCLogger.Level.DEBUG);
                 weatherTurningBad(new Rain(e));
             } else if (e.getWorld().hasStorm()) {
                 // End of rain.
+                WCLogger.log("Rain just stopped.", WCLogger.Level.WCHANGE);
             }
         }
     }
@@ -83,14 +82,12 @@ public class VanillaWeatherListener implements Listener {
             // Cancel the vanilla storm event.
             e.setCancelled(true);
         } else {
-            WCLogger.log("onStorm() called", WCLogger.Level.DEBUG);
-            
             // About to storm ?
             if (e.toThunderState()) {
-                WCLogger.log("e.toThunderState() => true", WCLogger.Level.DEBUG);
                 weatherTurningBad(new Storm(e));
             } else if (e.getWorld().isThundering()) {
                 // End of storm.
+                WCLogger.log("Storm just stopped.", WCLogger.Level.WCHANGE);
             }
         }
     }
@@ -103,6 +100,11 @@ public class VanillaWeatherListener implements Listener {
             // Cancel vanilla lightning strike event.
             e.setCancelled(true);
         } else {
+            Location location = e.getLightning().getLocation();
+            String strLocation = String.valueOf(location.getX()) + "/"
+                    + String.valueOf(location.getY()) + "/"
+                    + String.valueOf(location.getZ());
+            WCLogger.log("Lightning just struck at " + strLocation, WCLogger.Level.WEVENT);
             //weatherTurningBad(new LightningStrike(e));
         }
     }
