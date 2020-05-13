@@ -115,9 +115,7 @@ public class VanillaWeatherListener implements Listener {
         if (!weather.isEnabled()) {
             weather.cancel();
         } else {
-            if (!(weather instanceof LightningStrike)) {
-                WCLogger.log("Weather trying to change to " + weather.getName(), WCLogger.Level.WEVENT);
-            }
+            WCLogger.log("Weather trying to change to " + weather.getName(), WCLogger.Level.WEVENT);
             
             switch (limitMethod) {
                 case "rand":
