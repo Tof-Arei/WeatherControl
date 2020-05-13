@@ -31,7 +31,7 @@ import ch.ar.wc.env.event.WCLogger;
 import ch.ar.wc.vanilla.env.event.weather.VanillaWeather;
 import ch.ar.wc.vanilla.event.weather.Rain;
 import ch.ar.wc.vanilla.event.weather.Storm;
-//import ch.ar.wc.vanilla.event.weather.LightningStrike;
+import ch.ar.wc.vanilla.event.weather.LightningStrike;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -104,8 +104,8 @@ public class VanillaWeatherListener implements Listener {
             String strLocation = String.valueOf(location.getX()) + "/"
                     + String.valueOf(location.getY()) + "/"
                     + String.valueOf(location.getZ());
-            WCLogger.log("Lightning just struck at " + strLocation, WCLogger.Level.WEVENT);
-            //weatherTurningBad(new LightningStrike(e));
+            WCLogger.log("Lightning attempting to strike at " + strLocation, WCLogger.Level.WEVENT);
+            weatherTurningBad(new LightningStrike(e));
         }
     }
     
@@ -115,7 +115,10 @@ public class VanillaWeatherListener implements Listener {
         if (!weather.isEnabled()) {
             weather.cancel();
         } else {
-            WCLogger.log("Weather trying to change to " + weather.getName(), WCLogger.Level.WEVENT);
+            if (!(weather instanceof LightningStrike)) {
+                WCLogger.log("Weather trying to change to " + weather.getName(), WCLogger.Level.WEVENT);
+            }
+            
             switch (limitMethod) {
                 case "rand":
                     randomLimit(weather);
@@ -126,7 +129,7 @@ public class VanillaWeatherListener implements Listener {
             }
         }
     }
-    
+
     private void randomLimit(VanillaWeather weather) {
         int freq = (int) (weather.getFrequency() * 100);
         int rand = (int) (Math.random() * 100);
