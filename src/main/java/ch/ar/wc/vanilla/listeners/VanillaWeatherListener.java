@@ -27,7 +27,7 @@
  */
 package ch.ar.wc.vanilla.listeners;
 
-import ch.ar.wc.env.event.WCLogger;
+import ch.ar.wc.env.WCLogger;
 import ch.ar.wc.vanilla.env.event.weather.VanillaWeather;
 import ch.ar.wc.vanilla.event.weather.Rain;
 import ch.ar.wc.vanilla.event.weather.Storm;
@@ -133,13 +133,13 @@ public class VanillaWeatherListener implements Listener {
         int rand = (int) (Math.random() * 100);
         
         if (rand >= 0 && rand <= freq) {
+            WCLogger.log("freq=" + freq + " rand=" + rand, WCLogger.Level.DEBUG);
             WCLogger.log("Weather changed to " + weather.getName(), WCLogger.Level.WCHANGE);
             hmLastWeathers.put(weather.getName(), weather);
         } else {
             WCLogger.log("Weather " + weather.getName() + " canceled.", WCLogger.Level.WEVENT);
             weather.cancel();
         }
-        WCLogger.log("freq=" + freq + " rand=" + rand, WCLogger.Level.DEBUG);
     }
     
     private void ticksLimit(VanillaWeather weather) {

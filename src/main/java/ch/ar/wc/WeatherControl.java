@@ -31,7 +31,7 @@ import ch.ar.wc.listeners.WorldListener;
 import ch.ar.wc.listeners.WeatherListener;
 import ch.ar.wc.vanilla.listeners.VanillaWeatherListener;
 import ch.ar.wc.env.commands.WCCommandExecutor;
-import ch.ar.wc.env.event.WCLogger;
+import ch.ar.wc.env.WCLogger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 /**

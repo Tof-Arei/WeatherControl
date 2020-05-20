@@ -25,7 +25,7 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.env.event;
+package ch.ar.wc.env;
 
 import ch.ar.wc.WeatherControl;
 import org.bukkit.Bukkit;
