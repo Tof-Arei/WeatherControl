@@ -25,22 +25,19 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.vanilla.event.weather;
+package ch.ar.wc.minecraft.event.weather;
 
-import ch.ar.wc.vanilla.env.event.weather.VanillaWeather;
-import org.bukkit.event.weather.ThunderChangeEvent;
+import ch.ar.wc.minecraft.env.event.weather.VanillaWeather;
 
 /**
  *
  * @author Arei
  */
-public class Storm extends VanillaWeather {
-    public Storm(ThunderChangeEvent vEvent) {
-        super("Storm", "storms", vEvent);
+public class Clear extends VanillaWeather {
+    public Clear() {
+        super("Clear", "clear", null);
     }
-    
+
     @Override
-    public void cancel() {
-        ((ThunderChangeEvent) vEvent).setCancelled(true);
-    }
+    public void cancel() {}
 }

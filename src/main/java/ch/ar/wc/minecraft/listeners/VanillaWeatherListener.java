@@ -25,13 +25,13 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.vanilla.listeners;
+package ch.ar.wc.minecraft.listeners;
 
 import ch.ar.wc.env.WCLogger;
-import ch.ar.wc.vanilla.env.event.weather.VanillaWeather;
-import ch.ar.wc.vanilla.event.weather.Rain;
-import ch.ar.wc.vanilla.event.weather.Storm;
-import ch.ar.wc.vanilla.event.weather.LightningStrike;
+import ch.ar.wc.minecraft.env.event.weather.VanillaWeather;
+import ch.ar.wc.minecraft.event.weather.Rain;
+import ch.ar.wc.minecraft.event.weather.Storm;
+import ch.ar.wc.minecraft.event.weather.LightningStrike;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

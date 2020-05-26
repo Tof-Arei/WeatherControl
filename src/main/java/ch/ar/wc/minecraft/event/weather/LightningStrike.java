@@ -25,22 +25,22 @@
  * 
  * Good luck and Godspeed.
  */
-package ch.ar.wc.vanilla.env.event.weather;
+package ch.ar.wc.minecraft.event.weather;
 
-import ch.ar.wc.env.event.weather.Weather;
-import org.bukkit.event.weather.WeatherEvent;
+import ch.ar.wc.minecraft.env.event.weather.VanillaWeather;
+import org.bukkit.event.weather.LightningStrikeEvent;
 
 /**
  *
  * @author Arei
  */
-public abstract class VanillaWeather extends Weather {
-    protected WeatherEvent vEvent;
-    
-    public VanillaWeather(String name, String prefix, WeatherEvent vEvent) {
-        super(name, prefix, vEvent.getWorld());
-        this.vEvent = vEvent;
+public class LightningStrike extends VanillaWeather {
+    public LightningStrike(LightningStrikeEvent vEvent) {
+        super("LightningStrike", "lightning", vEvent);
     }
-
-    public abstract void cancel();
+    
+    @Override
+    public void cancel() {
+        ((LightningStrikeEvent) vEvent).setCancelled(true);
+    }
 }
